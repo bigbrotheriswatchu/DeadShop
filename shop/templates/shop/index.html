@@ -1,5 +1,59 @@
 {% extends 'shop/base_index.html' %}
 
 {% block content %}
-    pidor
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://simkl.in/fanart/81/817752aa634dd2d7_0.jpg" alt="альтернативный текст" width="100%" height="600">
+        <div class="container">
+          <div class="carousel-caption text-left">
+            <h1>Example headline.</h1>
+            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+
+<div class="container marketing mt-5">
+
+
+    <!-- START THE FEATURETTES -->
+
+
+{% for collection in collections %}
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">{{ collection.collection_name }} <span class="text-muted">It’ll blow your mind.</span></h2>
+        <p class="lead">{{ collection.description }}</p>
+        <a class="btn btn-dark" href="{% url 'list_t_shirts' collection_slug=collection.slug %}" role="button">Смотреть все майки</a>
+      </div>
+      <div class="col-md-5">
+
+        <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="{{ collection.image.url }}"/>
+
+      </div>
+    </div>
+{% endfor %}
+    <hr class="featurette-divider">
+
+
+    <!-- /END THE FEATURETTES -->
+
+  </div><!-- /.container -->
 {% endblock %}

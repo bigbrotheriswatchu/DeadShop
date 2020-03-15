@@ -1,0 +1,12 @@
+.basket-container{
+    position: relative;
+    width: 400px;
+}
+
+.basket-items{
+    position: absolute;
+    background-color: #55e093;
+    z-index: 10;
+    top: 50px;
+    padding: 10px;
+}
