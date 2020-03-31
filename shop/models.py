@@ -10,6 +10,7 @@ class Collection(models.Model):
     image           =   models.ImageField(upload_to='image', blank=True)
     slug            =   models.SlugField(max_length=250, unique=True)
 
+
     class Meta:
         verbose_name = 'Коллекция'
         verbose_name_plural = 'Коллекции'
@@ -28,6 +29,7 @@ class Tshirt(models.Model):
     shirt_image     =   models.ImageField(upload_to='image', blank=True)
     size            =   models.CharField(max_length=10)
     composition     =   models.CharField(max_length=50)
+    is_active       =   models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Майка'
@@ -37,7 +39,12 @@ class Tshirt(models.Model):
         #return reverse('shop:list_by_category', args=[self.slug])
 
     def __str__(self):
-        return "%s, %s" % (self.price, self.name)
+        return "%s" % self.name
+
+    def __int__(self):
+        return self.price
+
+
 
 
 class Status(models.Model):
@@ -48,6 +55,7 @@ class Status(models.Model):
 
     def __str__(self):
         return "Статус %s" % self.name
+
 
     class Meta:
         verbose_name = 'Статус заказа'
@@ -123,11 +131,12 @@ class ProductInBasket(models.Model):
     order = models.ForeignKey(Order, blank=True, null=True, default=None, on_delete=models.CASCADE)
     t_shirt = models.ForeignKey(Tshirt, blank=True, null=True, default=None, on_delete=models.CASCADE)
     nmb = models.IntegerField(default=1)
-    price_per_item = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price_per_item = models.DecimalField(max_digits=10, decimal_places=2, default=1500)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)#price*nmb
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
 
     def __str__(self):
         return self.t_shirt.name
@@ -136,3 +145,9 @@ class ProductInBasket(models.Model):
         verbose_name = 'Товар в корзине'
         verbose_name_plural = 'Товары в корзине'
 
+    def save(self, *args, **kwargs):
+        price_per_item = self.t_shirt.price
+        self.price_per_item = price_per_item
+        self.total_price = int(self.nmb) * price_per_item
+
+        super(ProductInBasket, self).save(*args, **kwargs)

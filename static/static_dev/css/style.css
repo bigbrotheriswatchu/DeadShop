@@ -10,3 +10,7 @@
     top: 50px;
     padding: 10px;
 }
+
+.delete-item {
+    cursor: pointer;
+}

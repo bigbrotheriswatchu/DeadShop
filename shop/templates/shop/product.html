@@ -1,19 +1,6 @@
 {% extends 'shop/base_index.html' %}
 {% load static %}
 
-{% block nav %}
-    <div class="dropdown">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span id="basket_total_amount"></span>
-            <span id="basket_total_nmb">
-            </span>
-            <i class="d-inline fas fa-shopping-basket fa-2x"></i>
-        </button>
-        <div class="dropdown-menu basket-items" aria-labelledby="dropdownMenuButton">
-
-        </div>
-    </div>
-{% endblock %}
 
 {% block content %}
     <div class="container mt-4 mb-4">
@@ -36,7 +23,7 @@
                     data-t_shirt_name="{{ t_shirt.name }}"
                     data-t_shirt_price="{{ t_shirt.price }}"
                 >
-                    Купить
+                    В корзину
                 </button>
             </form>
 
